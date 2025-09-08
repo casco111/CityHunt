@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Playful Quiz</title>
+  <style>
+    :root{
+      --bg: #fffaf5;
+      --card: #ffffff;
+      --text: #222222;
+      --muted: #777777;
+      --accent: #7c5cff;
+      --accent-2: #ffb84d;
+      --good: #1fbf75;
+      --bad: #ff5d73;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 10% -10%, #ffe5f1 0%, transparent 55%),
+                  radial-gradient(1000px 800px at 110% 10%, #e9f7ff 0%, transparent 50%),
+                  var(--bg);
+      color: var(--text);
+      display:flex; align-items:center; justify-content:center; padding: 24px;
+    }
+    .app{
+      width: min(900px, 100%);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px 22px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .header{
+      display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    }
+    .logo{
+      width:52px; height:52px; border-radius: 50%; display:grid; place-items:center; font-size:28px;
+      background: conic-gradient(from 0deg, var(--accent) 0 33%, var(--accent-2) 0 66%, #6ee7b7 0 100%);
+      color: white; box-shadow: var(--shadow);
+    }
+    h1{ font-size: clamp(22px, 3.2vw, 34px); margin:0; }
+    p.subtitle{ margin:0; color: var(--muted); }
+
+    .progress{
+      height: 10px; background: #f1f1f4; border-radius: 999px; margin: 18px 0 8px; overflow: hidden;
+    }
+    .bar{ height:100%; width:0%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width .35s ease; }
+    .counter{ font-size: 14px; color: var(--muted); }
+
+    .card{
+      margin-top: 14px; border:1px solid #f0f0f0; border-radius: calc(var(--radius) - 4px); padding: 18px; box-shadow: var(--shadow);
+    }
+    .q-text{ font-size: clamp(18px, 2.2vw, 22px); margin: 2px 0 14px; }
+
+    .options{ display:grid; gap:12px; }
+    .opt{
+      display:flex; align-items:center; gap:12px; padding: 12px 14px; border-radius: 14px;
+      border:1px solid #ececec; cursor: pointer; transition: transform .06s ease, border-color .2s ease, background .2s ease;
+      user-select:none;
+    }
+    .opt:hover{ transform: translateY(-1px); border-color:#e2e2ff; background: #fbfbff; }
+    .opt input{ display:none; }
+    .opt .dot{ width:22px; height:22px; border-radius:50%; border:2px solid var(--accent); display:inline-block; position:relative; }
+    .opt[aria-checked="true"] .dot::after{ content:""; position:absolute; inset:4px; border-radius:50%; background: var(--accent); }
+
+    .answer-row{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .answer-row input[type="text"]{
+      width:min(520px, 100%); padding:12px 14px; border-radius: 12px; border:1px solid #e8e8ef; font-size:16px;
+    }
+
+    .controls{ display:flex; gap:10px; margin-top: 16px; flex-wrap:wrap; }
+    button{
+      border:0; padding: 12px 16px; border-radius: 999px; cursor:pointer; font-weight:600; box-shadow: var(--shadow);
+      background: var(--accent); color:white; transition: transform .05s ease, opacity .2s ease, background .2s ease;
+    }
+    button.secondary{ background: #f4f4f8; color:#333; }
+    button.ghost{ background: transparent; box-shadow:none; border:1px solid #ececf5; }
+    button:active{ transform: translateY(1px); }
+    button[disabled]{ opacity:.6; pointer-events:none; }
+
+    .feedback{ margin-top: 12px; font-weight:700; }
+    .feedback.good{ color: var(--good); }
+    .feedback.bad{ color: var(--bad); }
+
+    .pill{
+      display:inline-flex; align-items:center; gap:8px; padding: 6px 10px; border-radius: 999px;
+      background: #f6f5ff; color: #4b3d99; font-size: 13px; border:1px solid #ece9ff;
+    }
+    .footer{ margin-top: 18px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; }
+    .hidden{ display:none !important; }
+    .small{ font-size: 12px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="app" role="application" aria-label="Playful Quiz">
+    <div class="header">
+      <div class="logo" aria-hidden="true">🎈</div>
+      <div>
+        <h1>Playful Quiz</h1>
+        <p class="subtitle">Lightweight, single‑file quiz with easily editable questions.</p>
+      </div>
+    </div>
+
+    <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+    <div class="counter" id="counter">Question 1 of 1</div>
+
+    <div class="card" id="card">
+      <div class="pill" id="qType">Multiple Choice</div>
+      <div class="q-text" id="qText">Loading…</div>
+      <div class="options" id="options"></div>
+
+      <div class="answer-row hidden" id="textRow">
+        <input type="text" id="textInput" placeholder="Type your answer here" autocomplete="off" />
+      </div>
+
+      <div class="controls">
+        <button id="btnSubmit">Check answer</button>
+        <button class="secondary" id="btnNext" disabled>Next</button>
+        <button class="ghost" id="btnRestart">Restart</button>
+      </div>
+
+      <div id="feedback" class="feedback" aria-live="polite"></div>
+      <div id="explain" class="small"></div>
+    </div>
+
+    <div class="footer">
+      <div class="small">Edit questions in the <strong>QUESTIONS</strong> list below ↓</div>
+      <div class="small">Types: <code>mc</code> (multiple choice), <code>tf</code> (true/false), <code>text</code> (short text)</div>
+    </div>
+  </div>
+
+  <script>
+    /*
+    ==========================
+    ✏️ EDIT QUESTIONS HERE
+    ==========================
+    Each question is an object with a type and fields:
+    - type: "mc" | "tf" | "text"
+    - q:    question text (string). You can use basic HTML, e.g. <em>italic</em>.
+    - options: for "mc" only → array of answer choices (strings)
+    - answer:
+        • for "mc": the index (0-based) of the correct option
+        • for "tf": true or false
+        • for "text": a string OR an array of acceptable strings (case-insensitive)
+    - explain: (optional) short explanation shown after answering
+    - points:  (optional) defaults to 1
+
+    EXAMPLES:
+    {
+      type: "mc",
+      q: "Which animal is a mammal?",
+      options: ["Shark", "Dolphin", "Trout", "Octopus"],
+      answer: 1,
+      explain: "Dolphins are warm-blooded mammals.",
+    }
+
+    {
+      type: "tf",
+      q: "The Earth has two moons.",
+      answer: false,
+    }
+
+    {
+      type: "text",
+      q: "Name the largest planet in our Solar System.",
+      answer: ["Jupiter"],
+      explain: "Jupiter is the largest by mass and diameter.",
+    }
+    */
+
+    const QUESTIONS = [
+      { type: "mc", q: "Which language runs in a web browser?", options: ["Python", "C++", "JavaScript", "Java"], answer: 2, explain: "JavaScript is built into browsers." },
+      { type: "tf", q: "HTML stands for HyperText Markup Language.", answer: true, explain: "Yep! It structures content on the web." },
+      { type: "text", q: "What color do you get when you mix blue and yellow?", answer: ["green"], explain: "Blue + yellow = green." },
+      { type: "mc", q: "Pick the odd one out:", options: ["Triangle", "Square", "Circle", "Rectangle"], answer: 2, explain: "Circle has no straight edges." },
+      { type: "tf", q: "2 × 5 equals 12.", answer: false },
+      { type: "text", q: "Spell the short day for Wednesday.", answer: ["wed", "weds"], explain: "Common abbreviations are 'Wed' or 'Weds'." },
+    ];
+
+    // ===============
+    // QUIZ ENGINE 🧠
+    // ===============
+    const els = {
+      bar: document.getElementById('bar'),
+      counter: document.getElementById('counter'),
+      qType: document.getElementById('qType'),
+      qText: document.getElementById('qText'),
+      options: document.getElementById('options'),
+      textRow: document.getElementById('textRow'),
+      textInput: document.getElementById('textInput'),
+      btnSubmit: document.getElementById('btnSubmit'),
+      btnNext: document.getElementById('btnNext'),
+      btnRestart: document.getElementById('btnRestart'),
+      feedback: document.getElementById('feedback'),
+      explain: document.getElementById('explain'),
+    };
+
+    let idx = 0;          // current question index
+    let score = 0;        // accumulated points
+    let locked = false;   // prevent double submit
+
+    function init(){
+      idx = 0; score = 0; locked = false;
+      shuffleInPlace(QUESTIONS); // comment this out to keep your original order
+      render();
+    }
+
+    function render(){
+      const n = QUESTIONS.length;
+      const q = QUESTIONS[idx];
+
+      // progress
+      els.bar.style.width = `${((idx)/n)*100}%`;
+      els.counter.textContent = `Question ${idx+1} of ${n}`;
+
+      // reset state
+      els.feedback.textContent = '';
+      els.feedback.className = 'feedback';
+      els.explain.textContent = '';
+      els.btnNext.disabled = true;
+      els.btnSubmit.disabled = false;
+      els.textRow.classList.add('hidden');
+      els.options.innerHTML = '';
+
+      // type label
+      const typeMap = { mc: 'Multiple Choice', tf: 'True / False', text: 'Short Text' };
+      els.qType.textContent = typeMap[q.type] || 'Question';
+      els.qText.innerHTML = q.q;
+
+      if(q.type === 'mc' || q.type === 'tf'){
+        const opts = q.type === 'tf' ? ["True", "False"] : q.options;
+        opts.forEach((label, i) => {
+          const div = document.createElement('div');
+          div.className = 'opt';
+          div.setAttribute('role','radio');
+          div.setAttribute('aria-checked','false');
+          div.tabIndex = 0;
+          div.innerHTML = `<span class="dot" aria-hidden="true"></span><span>${escapeHTML(label)}</span>`;
+          div.addEventListener('click', () => selectOption(i));
+          div.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); selectOption(i);} });
+          els.options.appendChild(div);
+        });
+        // store selection on the container element
+        els.options.dataset.selected = '';
+      }
+      else if(q.type === 'text'){
+        els.textRow.classList.remove('hidden');
+        els.textInput.value = '';
+        els.textInput.focus();
+      }
+    }
+
+    function selectOption(i){
+      const radios = [...els.options.children];
+      radios.forEach(r => r.setAttribute('aria-checked','false'));
+      radios[i].setAttribute('aria-checked','true');
+      els.options.dataset.selected = String(i);
+    }
+
+    function check(){
+      if(locked) return; locked = true;
+      const q = QUESTIONS[idx];
+      let correct = false;
+
+      if(q.type === 'mc'){
+        const sel = Number(els.options.dataset.selected);
+        correct = Number.isInteger(sel) && sel === q.answer;
+      }
+      else if(q.type === 'tf'){
+        const sel = Number(els.options.dataset.selected);
+        if(Number.isInteger(sel)){
+          const val = sel === 0; // 0 → True, 1 → False
+          correct = (val === q.answer);
+        }
+      }
+      else if(q.type === 'text'){
+        const input = (els.textInput.value || '').trim().toLowerCase();
+        const answers = Array.isArray(q.answer) ? q.answer : [q.answer];
+        correct = answers.map(a => String(a).trim().toLowerCase()).includes(input);
+      }
+
+      const points = q.points ?? 1;
+      if(correct) score += points;
+
+      // UI feedback
+      els.feedback.textContent = correct ? `✔ Correct! +${points}` : '✖ Not quite';
+      els.feedback.classList.add(correct ? 'good' : 'bad');
+      if(q.explain){ els.explain.textContent = q.explain; }
+      els.btnNext.disabled = false;
+      els.btnSubmit.disabled = true;
+
+      // show final progress if finishing
+      const isLast = idx === QUESTIONS.length - 1;
+      if(isLast){ els.bar.style.width = '100%'; }
+
+      locked = false;
+    }
+
+    function next(){
+      if(idx < QUESTIONS.length - 1){
+        idx++; render();
+      } else {
+        finish();
+      }
+    }
+
+    function finish(){
+      const total = QUESTIONS.reduce((a,q)=> a + (q.points ?? 1), 0);
+      const pct = Math.round((score/total)*100);
+      els.qType.textContent = 'All done!';
+      els.qText.innerHTML = `You scored <strong>${score}</strong> / ${total} (${pct}%).`;
+      els.options.innerHTML = '';
+      els.textRow.classList.add('hidden');
+      els.feedback.textContent = pct >= 60 ? '🎉 Nice work!' : '📚 Practice makes perfect!';
+      els.feedback.className = 'feedback ' + (pct >= 60 ? 'good' : 'bad');
+      els.explain.textContent = 'Press Restart to try again or edit the QUESTIONS to customize the quiz.';
+      els.btnNext.disabled = true;
+      els.btnSubmit.disabled = true;
+    }
+
+    function restart(){ init(); }
+
+    // helpers
+    function shuffleInPlace(arr){
+      for(let i=arr.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+    function escapeHTML(str){
+      return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[s]));
+    }
+
+    // wire up
+    els.btnSubmit.addEventListener('click', check);
+    els.btnNext.addEventListener('click', next);
+    els.btnRestart.addEventListener('click', restart);
+
+    // keyboard shortcut: Enter to submit / next
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter'){
+        if(!els.btnSubmit.disabled) check();
+        else if(!els.btnNext.disabled) next();
+      }
+    });
+
+    init();
+  </script>
+</body>
+</html>

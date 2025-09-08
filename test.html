@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Testing Quiz</title>
+  <link rel="stylesheet" href="test.css">
+</head>
+<body>
+    <div class="app">
+        <div class="header">
+          <div class="logo" aria-hidden="true">🎈</div>
+          <div>
+            <h1>Playful Quiz</h1>
+            <p class="subtitle">Lightweight, single‑file quiz with easily editable questions.</p>
+          </div>
+        </div>
+    
+        <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+        <div class="counter" id="counter">Question 1 of 1</div>
+    
+        <div class="card" id="card">
+          <div class="pill" id="qType">Multiple Choice</div>
+          <div id="img-container">
+
+          </div>
+          <div class="q-text" id="qText">Loading…</div>
+          <div class="options" id="options"></div>
+    
+          <div class="answer-row " id="textRow">
+          </div>
+    
+          <div class="controls">
+            <button id="btnSubmit">Check answer</button>
+            <button class="secondary" id="btnNext" disabled>Next</button>
+            <button class="secondary" id="btnRestart">Restart</button>
+          </div>
+    
+          <div id="feedback" class="feedback" aria-live="polite"></div>
+          <div id="explain" class="small"></div>
+        </div>
+    
+        <div class="footer">
+          <div class="small">Edit questions in the <strong>QUESTIONS</strong> list below ↓</div>
+          <div class="small">Edit questions in the <strong>QUESTIONS</strong> list below ↓</div>
+        </div>
+      </div>
+
+      <script src="questions.js"></script>
+    <script src="test.js"></script>
+</body>
+
+</html>
