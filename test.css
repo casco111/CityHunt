@@ -238,7 +238,7 @@ button[disabled] {
 }
 
 .hidden {
-    display: none !important;
+    display: none;
 }
 
 .small {
