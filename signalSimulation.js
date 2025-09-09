@@ -1,15 +1,15 @@
 class SignalSimulation {
     
-    constructor() {
+    constructor(questData) {
         this.isSearching = false;
         this.searchDuration = 5000; // 5 seconds
         this.signalStates = ['weak', 'medium', 'strong'];
         this.currentState = 0;
         this.searchInterval = null;
+        this.questData = questData;
     }
     startSearch() {
         if (this.isSearching) return;
-        
         this.isSearching = true;
         els.btnGetDestination.disabled = true;
         els.btnGetDestination.querySelector('.btn-text').textContent = 'Searching...';
@@ -27,8 +27,45 @@ class SignalSimulation {
                 this.completeSearch();
             }
         }, this.searchDuration / this.signalStates.length);
+
+        this.openLocation();
     }
     
+
+    openLocation() {
+      
+
+        const { latitude, longitude } = this.questData.location;
+        
+        // Validate coordinates
+        if (!latitude || !longitude) {
+            console.warn('Invalid coordinates provided');
+            return;
+        }
+
+        // Detect if device is iOS
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        
+        let mapsUrl;
+        
+        if (isIOS) {
+            // Use Apple Maps for iOS devices
+            mapsUrl = `http://maps.apple.com/?q=${latitude},${longitude}`;
+        } else {
+            // Use Google Maps for other devices
+            mapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+        }
+        
+        // Open the maps URL
+        try {
+            window.open(mapsUrl, '_blank');
+            console.log(`Opening ${isIOS ? 'Apple Maps' : 'Google Maps'} for coordinates: ${latitude}, ${longitude}`);
+        } catch (error) {
+            console.error('Failed to open maps:', error);
+            // Fallback: try to open in the same window
+            window.location.href = mapsUrl;
+        }
+    }
     updateSignalState() {
         const state = this.signalStates[this.currentState];
         const container = els.pulsatingCircle.parentElement;
@@ -61,6 +98,7 @@ class SignalSimulation {
         // Show completion state
         els.pulsatingCircle.textContent = '✅';
         els.signalText.textContent = 'Destination found!';
+    
         
         // Reset button
         els.btnGetDestination.disabled = false;

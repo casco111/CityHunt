@@ -46,6 +46,14 @@ const quests = [
     { type: "mc", q: "Which language runs in a web browser?", options: ["Python", "C++", "JavaScript", "Java"], answer: 2, explain: "JavaScript is built into browsers." }
 ];
 
+// Sample quest data with location for testing
+const questData = {
+    location: {
+        latitude: 48.06786716295468,  // Berlin coordinates as example
+        longitude:  16.31530191488119
+    },
+  
+};
 
 const lQ = new loadQuest(quests);
 lQ.loadNextQuest();
@@ -61,7 +69,7 @@ els.btnSubmit.addEventListener("click", () => {
 
 
 // Signal simulation for destination search
-let signalSimulation = new SignalSimulation();
+let signalSimulation = new SignalSimulation(questData);
 
 // Add event listener for the destination button
 els.btnGetDestination.addEventListener('click', () => {
