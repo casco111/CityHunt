@@ -572,6 +572,16 @@ span{
 }
 
 /* Signal strength states */
+.signal-very-weak .pulsating-circle {
+    background: linear-gradient(135deg, #8e44ad, #9b59b6);
+    box-shadow: 0 0 20px rgba(142, 68, 173, 0.3);
+}
+
+.signal-very-weak .pulsating-circle::before,
+.signal-very-weak .pulsating-circle::after {
+    border-color: #8e44ad;
+}
+
 .signal-weak .pulsating-circle {
     background: linear-gradient(135deg, var(--bad), #ff8a95);
     box-shadow: 0 0 20px rgba(255, 93, 115, 0.3);

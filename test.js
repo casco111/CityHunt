@@ -49,8 +49,8 @@ const quests = [
 // Sample quest data with location for testing
 const questData = {
     location: {
-        latitude: 48.06786716295468,  // Berlin coordinates as example
-        longitude:  16.31530191488119
+        latitude: 48.0765639697222,  // Berlin coordinates as example
+        longitude:  16.295524895392894
     },
   
 };
