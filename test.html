@@ -1,52 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Testing Quiz</title>
   <link rel="stylesheet" href="test.css">
 </head>
-<body>
-    <div class="app">
-        <div class="header">
-          <div class="logo" aria-hidden="true">🎈</div>
-          <div>
-            <h1>Playful Quiz</h1>
-            <p class="subtitle">Lightweight, single‑file quiz with easily editable questions.</p>
-          </div>
-        </div>
-        <div class="hidden">
-          <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div>
-          <div class="counter" id="counter">Question 1 of 1</div>
-        </div>
-        <div class="card" id="card">
-          <div class="pill" id="qType">Multiple Choice</div>
-          <div id="img-container">
 
-          </div>
-          <div class="q-text" id="qText">Loading…</div>
-          <div class="options" id="options"></div>
-    
-          <div class="answer-row " id="textRow">
-          </div>
-    
-          <div class="controls">
-            <button id="btnSubmit">Check answer</button>
-            <button class="secondary" id="btnNext" disabled>Next</button>
-            <button class="secondary" id="btnRestart">Restart</button>
-          </div>
-    
-          <div id="feedback" class="feedback" aria-live="polite"></div>
-          <div id="explain" class="small"></div>
-        </div>
-    
-        <div class="footer">
-          <div class="small">Edit questions in the <strong>QUESTIONS</strong> list below ↓</div>
-          <div class="small">Edit questions in the <strong>QUESTIONS</strong> list below ↓</div>
-        </div>
+<body>
+  <div id="quiz" class="app">
+    <div class="header">
+      <div class="logo" aria-hidden="true">🎈</div>
+      <div>
+        <h1>Playful Quiz</h1>
+        <p class="subtitle">Lightweight, single‑file quiz with easily editable questions.</p>
+      </div>
+    </div>
+
+    <div data-id="qUI" class="progress" aria-hidden="true">
+      <div class="bar" id="bar"></div>
+    </div>
+    <div data-id="qUI" class="counter" id="counter">Question 1 of 1</div>
+
+    <div class="card" id="card">
+      <div data-id="qUI" class="pill" id="qType">Multiple Choice</div>
+      <div id="img-container"></div>
+      <div class="q-text" id="qText">Loading…</div>
+      <div data-id="qUI" class="options" id="options"></div>
+      <div data-id="qUI" class="answer-row " id="textRow"></div>
+      <span data-id="tUI" id="tText">
+        First linea eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee eeeeeeeeeeeeeeeeeeeeeeeeeafaef
+        aefaaaaaaaaaaaaaaaaaaaaaaa
+        Second line
+      </span>
+      <div class="controls">
+        <button data-id="qUI" id="btnSubmit">Check answer</button>
+        <button class="secondary" id="btnNext">Next</button>
+        <!-- <button class="secondary" id="btnRestart">Restart</button> -->
       </div>
 
-      <script src="questions.js"></script>
+      <div data-id="qUI" id="feedback" class="feedback" aria-live="polite"></div>
+      <div data-id="qUI" id="explain" class="small"></div>
+    </div>
+
+    <div id="textUI">
+
+    </div>
+
+    <!-- End Card -->
+    <div id="endCard" class="end-card hidden">
+      <div class="end-content">
+        <h2>Quiz Complete!</h2>
+        <div class="score-display">
+
+          <p class="score-text">You scored <span id="scorePercentage">0</span>%</p>
+        </div>
+        <div id="endMessage">
+          Great job! You've completed the quiz.
+          yur
+        </div>
+        <div class="end-controls">
+          <button id="btnCloseQuiz" class="primary">Close Quiz</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="small">Edit questions in the <strong>QUESTIONS</strong> list below ↓</div>
+      <div class="small">Edit questions in the <strong>QUESTIONS</strong> list below ↓</div>
+    </div>
+  </div>
+   <div id="searchLocation" class="search-location hidden">
+     <div class="search-content">
+       <div class="search-icon">📍</div>
+       <h2>Ready for Adventure?</h2>
+       <p class="search-description">Discover your next destination and start exploring!</p>
+       
+       <div class="signal-container">
+         <div class="pulsating-circle" id="pulsatingCircle"></div>
+         <div class="signal-text" id="signalText">Ready to search</div>
+       </div>
+       
+       <button id="btnGetDestination" class="destination-btn">
+         <span class="btn-icon">🎯</span>
+         <span class="btn-text">Get Next Destination</span>
+       </button>
+     </div>
+   </div>
+
+    <script src="questions.js"></script>
+    <script src="loadQuest.js"></script>
     <script src="test.js"></script>
 </body>
 

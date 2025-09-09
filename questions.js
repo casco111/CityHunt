@@ -3,6 +3,7 @@ const els = {
     counter: document.getElementById('counter'),
     qType: document.getElementById('qType'),
     qText: document.getElementById('qText'),
+    tText: document.getElementById('tText'),
     options: document.getElementById('options'),
     textRow: document.getElementById('textRow'),
     textInput: document.getElementById('textInput'),
@@ -12,6 +13,17 @@ const els = {
     feedback: document.getElementById('feedback'),
     explain: document.getElementById('explain'),
     imgContainer: document.getElementById('img-container'),
+    endCard: document.getElementById('endCard'),
+    finalScore: document.getElementById('finalScore'),
+    totalQuestions: document.getElementById('totalQuestions'),
+    scorePercentage: document.getElementById('scorePercentage'),
+    endMessage: document.getElementById('endMessage'),
+    btnCloseQuiz: document.getElementById('btnCloseQuiz'),
+    btnRestartQuiz: document.getElementById('btnRestartQuiz'),
+    searchLocation: document.getElementById('searchLocation'),
+    pulsatingCircle: document.getElementById('pulsatingCircle'),
+    signalText: document.getElementById('signalText'),
+    btnGetDestination: document.getElementById('btnGetDestination'),
 };
 
 class multipleChoice {
@@ -189,6 +201,41 @@ class dragDropQuestion {
         els.textRow.innerHTML = "";
         els.explain.textContent = "";
         els.feedback.textContent = "";
+        els.imgContainer.innerHTML = "";
+    }
+}
+
+
+class textCard {
+    constructor(data) {
+        this.data = data;
+    }
+
+    show() {
+        els.qText.textContent = this.data.ht;
+        els.tText.textContent = this.data.ct;
+        this.showImage();
+    }
+    showImage(){
+        if(!this.data.img) return;
+        const imgDiv = document.createElement("img");
+        imgDiv.src = this.data.img;
+        els.imgContainer.appendChild(imgDiv);
+    }
+    check() {
+        let index = -1;
+        this.divs.forEach((e, i) => {
+            if (e.getAttribute('aria-checked') === "true") index = i;
+            e.style.pointerEvents = "none";
+        });
+        let result = index == this.data.answer;
+        els.explain.textContent = this.data.explain;
+        els.feedback.textContent = result ? "correct!" : "wrong!";
+        return result;
+    }
+    remove() {
+        els.qText.textContent = "";
+        els.tText.textContent = "";
         els.imgContainer.innerHTML = "";
     }
 }
