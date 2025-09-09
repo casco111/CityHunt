@@ -34,10 +34,6 @@ class SignalSimulation {
             this.updateSignalBasedOnLocation();
         }, 1000); // Update every second
 
-        // Complete search after duration
-        setTimeout(() => {
-            this.completeSearch();
-        }, this.searchDuration);
     }
 
     startLocationTracking() {
@@ -95,6 +91,7 @@ class SignalSimulation {
             this.questData.location.latitude,
             this.questData.location.longitude
         );
+        console.log(distance)
 
         let signalState;
         if (distance <= this.distanceThresholds.strong) {
@@ -117,16 +114,12 @@ class SignalSimulation {
         container.classList.remove('signal-weak', 'signal-medium', 'signal-strong', 'signal-very-weak');
         container.classList.add(`signal-${signalState}`);
         
-        // Update signal text with distance
-        const distanceText = distance < 1000 ? 
-            `${Math.round(distance)}m away` : 
-            `${(distance / 1000).toFixed(1)}km away`;
             
         const messages = {
-            'very-weak': `Very far... (${distanceText})`,
-            'weak': `Far... (${distanceText})`,
-            'medium': `Getting closer... (${distanceText})`,
-            'strong': `Right there! (${distanceText})`
+            'very-weak': `Very far...`,
+            'weak': `Far... `,
+            'medium': `Getting closer... `,
+            'strong': `Right there!`
         };
         els.signalText.textContent = messages[signalState];
         
@@ -144,7 +137,6 @@ class SignalSimulation {
         // Fallback to time-based signal progression if location fails
         this.currentState = 0;
         this.updateSignalState();
-        
         const fallbackInterval = setInterval(() => {
             this.currentState++;
             if (this.currentState < this.signalStates.length) {
