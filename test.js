@@ -42,8 +42,8 @@ els.btnSubmit.addEventListener("click", ()=>{
 
 const quests = [
     { type: "t", ht: "Which language runs in a web browser?", ct: "moin lennard \n du hund" },
-    { type: "tq", q: "What color do you get when you mix blue and yellow?", answer: ["green"], explain: "Blue + yellow = green.", img: "https://www.animenachrichten.de/wp-content/uploads/2018/11/OK-saitama-one-punch-man-39439986-1920-1080.png" },
-    { type: "mc", q: "Which language runs in a web browser?", options: ["Python", "C++", "JavaScript", "Java"], answer: 2, explain: "JavaScript is built into browsers." }
+    //{ type: "tq", q: "What color do you get when you mix blue and yellow?", answer: ["green"], explain: "Blue + yellow = green.", img: "https://www.animenachrichten.de/wp-content/uploads/2018/11/OK-saitama-one-punch-man-39439986-1920-1080.png" },
+    //{ type: "mc", q: "Which language runs in a web browser?", options: ["Python", "C++", "JavaScript", "Java"], answer: 2, explain: "JavaScript is built into browsers." }
 ];
 
 // Sample quest data with location for testing

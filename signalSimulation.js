@@ -10,9 +10,9 @@ class SignalSimulation {
         this.currentLocation = null;
         this.locationWatchId = null;
         this.distanceThresholds = {
-            strong: 100,    // within 100 meters
-            medium: 500,    // within 500 meters
-            weak: 2000      // within 2 kilometers
+            strong: 20,    // within 20 meters
+            medium: 50,    // within 50 meters
+            weak: 200      // within 200 meters
         };
     }
     startSearch() {
@@ -93,48 +93,26 @@ class SignalSimulation {
         );
         console.log(distance)
 
-        let signalState;
+
         if (distance <= this.distanceThresholds.strong) {
-            signalState = 'strong';
+            this.completeSearch();
+            return;
         } else if (distance <= this.distanceThresholds.medium) {
-            signalState = 'medium';
+            this.currentState = 2;
         } else if (distance <= this.distanceThresholds.weak) {
-            signalState = 'weak';
+            this.currentState = 1;
         } else {
-            signalState = 'very-weak';
+            this.currentState = 0;
         }
 
-        this.updateSignalStateByDistance(signalState, distance);
+        this.updateSignalState();
     }
 
-    updateSignalStateByDistance(signalState, distance) {
-        const container = els.pulsatingCircle.parentElement;
-        
-        // Remove previous signal classes
-        container.classList.remove('signal-weak', 'signal-medium', 'signal-strong', 'signal-very-weak');
-        container.classList.add(`signal-${signalState}`);
-        
-            
-        const messages = {
-            'very-weak': `Very far...`,
-            'weak': `Far... `,
-            'medium': `Getting closer... `,
-            'strong': `Right there!`
-        };
-        els.signalText.textContent = messages[signalState];
-        
-        // Update circle content
-        const icons = {
-            'very-weak': '📡',
-            'weak': '📡',
-            'medium': '📶',
-            'strong': '🎯'
-        };
-        els.pulsatingCircle.textContent = icons[signalState];
-    }
+   
 
     fallbackToDefaultSignal() {
         // Fallback to time-based signal progression if location fails
+        alert("Cannot read location")
         this.currentState = 0;
         this.updateSignalState();
         const fallbackInterval = setInterval(() => {
@@ -143,6 +121,7 @@ class SignalSimulation {
                 this.updateSignalState();
             } else {
                 clearInterval(fallbackInterval);
+                this.completeSearch();
             }
         }, this.searchDuration / this.signalStates.length);
 
