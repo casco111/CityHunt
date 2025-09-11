@@ -42,15 +42,15 @@ class SignalSimulation {
             this.fallbackToDefaultSignal();
             return;
         }
-
        
         navigator.geolocation.getCurrentPosition(position => {
-            currentLat = position.coords.latitude;
-            currentLon = position.coords.longitude;
-            
+            this.currentLocation = position.coords;
+            console.log(this.currentLocation)
         }, error => {
-            alert(error)
-            console.log("Unable to retrieve location");
+      
+            console.log(`Unable to retrieve location${error}`);
+            alert(error.message)
+            clearInterval(this.searchInterval)
             this.fallbackToDefaultSignal();
             return null;
         });
