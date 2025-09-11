@@ -21,7 +21,6 @@ class SignalSimulation {
         els.btnGetDestination.disabled = true;
         els.btnGetDestination.querySelector('.btn-text').textContent = 'Searching...';
         
-        this.openLocation();
         // Start location tracking
         this.startLocationTracking();
         
@@ -33,12 +32,14 @@ class SignalSimulation {
         this.searchInterval = setInterval(() => {
             this.updateSignalBasedOnLocation();
         }, 1000); // Update every second
-
+        //this.openLocation();
+        
     }
 
     startLocationTracking() {
         if (!navigator.geolocation) {
             console.warn('Geolocation is not supported by this browser');
+            this.fallbackToDefaultSignal();
             return;
         }
 
