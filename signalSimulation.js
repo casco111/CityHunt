@@ -33,7 +33,7 @@ class SignalSimulation {
             this.updateSignalBasedOnLocation();
         }, 1000); // Update every second
         //this.openLocation();
-        
+        this.openLocation();
     }
 
     updateLocation() {
@@ -49,7 +49,6 @@ class SignalSimulation {
         }, error => {
       
             console.log(`Unable to retrieve location${error}`);
-            alert(error.message)
             clearInterval(this.searchInterval)
             this.fallbackToDefaultSignal();
             return null;
