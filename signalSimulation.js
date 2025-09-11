@@ -21,17 +21,7 @@ class SignalSimulation {
         els.btnGetDestination.disabled = true;
         els.btnGetDestination.querySelector('.btn-text').textContent = 'Searching...';
         
-        // Start location tracking
-        // On iOS/Safari, requesting once on user gesture helps trigger the prompt
-        this.checkSecureContext();
-        this.requestInitialPosition()
-            .catch(() => {
-                // If initial read fails, continue with fallback behavior
-                this.fallbackToDefaultSignal();
-            })
-            .finally(() => {
-                this.startLocationTracking();
-            });
+      
         
         // Start with weak signal
         this.currentState = 0;
@@ -39,92 +29,32 @@ class SignalSimulation {
         
         // Progress through signal states with location-based updates
         this.searchInterval = setInterval(() => {
+            this.updateLocation();
             this.updateSignalBasedOnLocation();
         }, 1000); // Update every second
         //this.openLocation();
         
     }
 
-    startLocationTracking() {
+    updateLocation() {
         if (!navigator.geolocation) {
             console.warn('Geolocation is not supported by this browser');
             this.fallbackToDefaultSignal();
             return;
         }
 
-        const options = {
-            enableHighAccuracy: true,
-            timeout: 30000,
-            maximumAge: 0
-        };
-
-        this.locationWatchId = navigator.geolocation.watchPosition(
-            (position) => {
-                this.currentLocation = {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude
-                };
-                console.log('Location updated:', this.currentLocation);
-            },
-            (error) => {
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-                let message = 'Error getting location';
-                if (error && typeof error.code === 'number') {
-                    if (error.code === 1) message = 'Location permission denied';
-                    if (error.code === 2) message = 'Location unavailable';
-                    if (error.code === 3) message = 'Location timeout';
-                }
-                if (isIOS && !this.isSecureOrigin()) {
-                    message += ' (iOS requires HTTPS or localhost)';
-                }
-                console.error(message, error);
-                // Fallback to default signal progression if location fails
-                this.fallbackToDefaultSignal();
-            },
-            options
-        );
-    }
-
-    requestInitialPosition() {
-        return new Promise((resolve, reject) => {
-            if (!navigator.geolocation) {
-                return reject(new Error('Geolocation not supported'));
-            }
-            const options = {
-                enableHighAccuracy: true,
-                timeout: 30000,
-                maximumAge: 0
-            };
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    this.currentLocation = {
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude
-                    };
-                    console.log('Initial location:', this.currentLocation);
-                    resolve(position);
-                },
-                (error) => {
-                    reject(error);
-                },
-                options
-            );
+       
+        navigator.geolocation.getCurrentPosition(position => {
+            currentLat = position.coords.latitude;
+            currentLon = position.coords.longitude;
+            
+        }, error => {
+            alert(error)
+            console.log("Unable to retrieve location");
+            this.fallbackToDefaultSignal();
+            return null;
         });
-    }
-
-    isSecureOrigin() {
-        if (location.protocol === 'https:') return true;
-        const host = location.hostname;
-        return host === 'localhost' || host === '127.0.0.1' || host === '::1';
-    }
-
-    checkSecureContext() {
-        const isSecure = this.isSecureOrigin();
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-        if (!isSecure && isIOS) {
-            console.warn('iOS requires HTTPS/localhost for geolocation. Current origin is not secure.');
-            alert('On iPhone, location only works over HTTPS or localhost. Please open this page via HTTPS.');
-        }
+     
     }
 
     calculateDistance(lat1, lon1, lat2, lon2) {
