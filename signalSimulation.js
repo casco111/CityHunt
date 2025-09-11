@@ -10,22 +10,24 @@ class SignalSimulation {
         this.currentLocation = null;
         this.locationWatchId = null;
         this.distanceThresholds = {
-            strong: 20,    // within 20 meters
-            medium: 50,    // within 50 meters
-            weak: 200      // within 200 meters
+            strong: 20,    // within 50 meters
+            medium: 50,    // within 100 meters
+            weak: 200      // within 250 meters
         };
+        this.resetSignal();
     }
-    startSearch() {
+    async startSearch() {
         if (this.isSearching) return;
         this.isSearching = true;
         els.btnGetDestination.disabled = true;
         els.btnGetDestination.querySelector('.btn-text').textContent = 'Searching...';
-        
-      
+        this.updateSignalState();
+        //this.openLocation(); ToDo ebnavbke
+        const loc = await this.updateLocation();
+        if(!loc)return;
         
         // Start with weak signal
         this.currentState = 0;
-        this.updateSignalState();
         
         // Progress through signal states with location-based updates
         this.searchInterval = setInterval(() => {
@@ -33,25 +35,25 @@ class SignalSimulation {
             this.updateSignalBasedOnLocation();
         }, 1000); // Update every second
         //this.openLocation();
-        this.openLocation();
     }
 
-    updateLocation() {
+    async updateLocation() {
         if (!navigator.geolocation) {
             console.warn('Geolocation is not supported by this browser');
             this.fallbackToDefaultSignal();
-            return;
+            return false;
         }
        
         navigator.geolocation.getCurrentPosition(position => {
             this.currentLocation = position.coords;
-            console.log(this.currentLocation)
+            console.log(this.currentLocation);
+            return true;
         }, error => {
       
             console.log(`Unable to retrieve location${error}`);
             clearInterval(this.searchInterval)
             this.fallbackToDefaultSignal();
-            return null;
+            return false;
         });
      
     }
@@ -95,10 +97,34 @@ class SignalSimulation {
         } else {
             this.currentState = 0;
         }
-
+        
         this.updateSignalState();
     }
-
+    
+    updateSignalState() {
+        const state = this.signalStates[this.currentState];
+        const container = els.pulsatingCircle.parentElement;
+        
+        // Remove previous signal classes
+        container.classList.remove('signal-weak', 'signal-medium', 'signal-strong');
+        container.classList.add(`signal-${state}`);
+        
+        // Update signal text
+        const messages = {
+            weak: 'far...',
+            medium: 'getting closer...',
+            strong: 'right there!'
+        };
+        els.signalText.textContent = messages[state];
+        
+        // Update circle content
+        const icons = {
+            weak: '📡',
+            medium: '📶',
+            strong: '🎯'
+        };
+        els.pulsatingCircle.textContent = icons[state];
+    }
    
 
     fallbackToDefaultSignal() {
@@ -160,53 +186,15 @@ class SignalSimulation {
             window.location.href = mapsUrl;
         }
     }
-    updateSignalState() {
-        const state = this.signalStates[this.currentState];
-        const container = els.pulsatingCircle.parentElement;
-        
-        // Remove previous signal classes
-        container.classList.remove('signal-weak', 'signal-medium', 'signal-strong');
-        container.classList.add(`signal-${state}`);
-        
-        // Update signal text
-        const messages = {
-            weak: 'far...',
-            medium: 'getting closer...',
-            strong: 'right there!'
-        };
-        els.signalText.textContent = messages[state];
-        
-        // Update circle content
-        const icons = {
-            weak: '📡',
-            medium: '📶',
-            strong: '🎯'
-        };
-        els.pulsatingCircle.textContent = icons[state];
-    }
     
     completeSearch() {
         clearInterval(this.searchInterval);
         this.isSearching = false;
         
-        // Stop location tracking
-        if (this.locationWatchId) {
-            navigator.geolocation.clearWatch(this.locationWatchId);
-            this.locationWatchId = null;
-        }
-        
-        // Show completion state
-        els.pulsatingCircle.textContent = '✅';
-        els.signalText.textContent = 'Destination found!';
-        
-        // Reset button
         els.btnGetDestination.disabled = false;
-        els.btnGetDestination.querySelector('.btn-text').textContent = 'Get Next Destination';
-        
-        // Reset signal state after a delay
-        setTimeout(() => {
-            this.resetSignal();
-        }, 2000);
+        els.btnGetDestination.classList.add("hidden");
+        els.btnStartQuest.classList.remove("hidden");
+       
     }
     
     resetSignal() {
@@ -214,5 +202,10 @@ class SignalSimulation {
         container.classList.remove('signal-weak', 'signal-medium', 'signal-strong', 'signal-very-weak');
         els.pulsatingCircle.textContent = '📍';
         els.signalText.textContent = 'Ready to search';
+        els.btnGetDestination.classList.remove("hidden")
+        els.btnStartQuest.classList.add("hidden")
+        els.btnGetDestination.querySelector('.btn-text').textContent = 'Get Next Destination';
+
     }
+
 }

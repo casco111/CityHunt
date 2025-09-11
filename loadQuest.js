@@ -7,7 +7,7 @@ class loadQuest {
         questData.forEach(q => {
             if (q.type !== 't') this.questionNumber++;
         })
-
+        this.restartQuiz();
     }
 
 
@@ -99,9 +99,7 @@ class loadQuest {
        
         els.endMessage.textContent = "done";
        
-        els.btnCloseQuiz.addEventListener('click', () => {
-            this.closeQuiz();
-        });
+       
         
     }
     
@@ -112,7 +110,7 @@ class loadQuest {
         document.getElementById('searchLocation').classList.remove("hidden")
        
     }
-    /*
+    
     restartQuiz() {
         // Reset quiz state
         this.current = -1;
@@ -141,8 +139,7 @@ class loadQuest {
         // Reset progress bar
         els.bar.style.width = "0%";
         
-        // Start quiz from beginning
-        this.loadNextQuest();
-    }*/
+      
+    }
 
 }

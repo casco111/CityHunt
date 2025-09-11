@@ -24,6 +24,9 @@ const els = {
     pulsatingCircle: document.getElementById('pulsatingCircle'),
     signalText: document.getElementById('signalText'),
     btnGetDestination: document.getElementById('btnGetDestination'),
+    btnStartQuest: document.getElementById('btnStartQuest'),
+    quizPanel: document.getElementById('quiz'),
+    searchPanel: document.getElementById('searchLocation'),
 };
 
 class multipleChoice {

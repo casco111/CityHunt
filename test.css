@@ -512,7 +512,6 @@ span{
     font-size: 18px;
     font-weight: 600;
     cursor: pointer;
-    display: inline-flex;
     align-items: center;
     gap: 12px;
     box-shadow: 0 8px 25px rgba(124, 92, 255, 0.3);
