@@ -40,240 +40,21 @@ els.btnSubmit.addEventListener("click", ()=>{
 */
 
 
-const quests = [
-    // 🔹 Quest 1: Professor Falks Haus
-    {
-        location: {
-            latitude: 48.200100,
-            longitude: 16.370100
-        },
-        questions: [
-            {
-                type: "t",
-                ht: "Professor Heinrich Falk",
-                img: "https://i.pinimg.com/736x/45/49/81/4549812f34bc9f426f266491d2153b09.jpg",
-                ct: "Es war ein Tag wie jeder andere. Du schlenderst die vertraute Straße entlang, vorbei an dem alten, ehrwürdigen Haus von Professor Heinrich Falk. Ein brillanter Wissenschaftler, bekannt für seinen scharfen Verstand und seinen immensen Fortschritt im Bereich von Quantum-Computing und KI. \n" +
-                    "Doch dieser sonst so friedliche Ort ist mit Chaos und Hektik erfüllt. Blaulichter flackern, Polizeiautos stehen kreuz und quer, und Sanitäter laufen hektisch ins Haus. Ein leises Murmeln geht durch die Menge der Schaulustigen. Mord. \n  Neugier treibt dich näher an die Absperrung. Du bemerkst eine Überwachungskamera an einer Laterne in der Nähe. Wenn sie aktiv war, könnte sie den Täter gesehen haben. \n Schaffst du es, das System zu hacken, um an nützliche Informationen zu kommen?"
-            },
-            {
-                type: "mc",
-                q: "Beim Versuch eine Verbindung herzustellen wurde folgender Code zurückgegeben: 01101011 01100101 01111001",
-                options: [
-                    "Die Entfernung ist zu groß",
-                    "Ein Passwort wird benötigt",
-                    "Keine Stromversorgung",
-                    "Keine Daten vorhanden"
-                ],
-                answer: 1,
-                explain: "Der Binärcode ergibt 'key'. Es wird ein Passwort benötigt."
-            },
-            {
-                type: "mc",
-                q: "Wie findest du ein Passwort?",
-                options: [
-                    "Password probieren",
-                    "Postleitzahl probieren",
-                    "Kamera untersuchen",
-                    "Falk probieren"
-                ],
-                answer: 2,
-                explain: "Nur durch die Kamera-Inspektion findest du Hinweise."
-            },
-            {
-                type: "mc",
-                q: "In einem Fenster spiegelt sich die Rückseite der Kamera. Kannst du den Code erkennen?",
-                img: "https://media.discordapp.net/attachments/846463038987304961/1347246974679777403/Code1.png?ex=68c44c85&is=68c2fb05&hm=efa99e04edddd8c4212a64a0b859b2620a4573f767246dd6db903eb4bba715e7&=&format=webp&quality=lossless",
-                options: [
-                    "AX8KQM14",
-                    "AX8KQMN1",
-                    "AX8KOV14",
-                    "AX8ROMV4"
-                ],
-                answer: 0,
-                explain: "Der richtige Code lautet AX8KQM14."
-            },
-            {
-                type: "t",
-                ht: "Gut gemacht!",
-                ct: "Du hast Zugriff auf die Überwachungsaufnahmen. Vor 15 Minuten verließ ein Mann in Mantel das Haus. Er wirft etwas Kleines in den Mistkübel gegenüber…"
-            }
-        ]
-    },
 
-    // 🔹 Quest 2: Mistkübel / heiße Spur
-    {
-        location: {
-            latitude: 48.200200,
-            longitude: 16.370200
-        },
-        questions: [
-            {
-                type: "t",
-                ht: "Eine heiße Spur",
-                ct: "Zeit herauszufinden, was der Mann so dringend entsorgen musste!",
-                img: "https://upload.wikimedia.org/wikipedia/commons/7/76/Trash_bin_in_Vienna_01.jpg"
-            },
-            {
-                type: "mc",
-                q: "Gehörte dies dem Täter?",
-                img: "https://www.bio-einweggeschirr.at/media/image/product/27784/md/mwd08_just-paper-doppelwandbecher-braun-200ml-8oz-o-80-mm.jpg",
-                options: ["möglich", "unwahrscheinlich"],
-                answer: 1,
-                explain: "Ein Becher hat keine Verbindung zum Täter."
-            },
-            {
-                type: "mc",
-                q: "Gehörte dies dem Täter?",
-                img: "https://utopia.org/app/uploads/2021/10/you-can-you-eat-banana-peels-cc0-pixabay-alexas_fotos-211011.jpg",
-                options: ["möglich", "unwahrscheinlich"],
-                answer: 1,
-                explain: "Eine Bananenschale – wohl kaum relevant."
-            },
-            {
-                type: "mc",
-                q: "Gehörte dies dem Täter?",
-                img: "https://img.freepik.com/premium-photo/crumpled-paper-texture-crumpled-paper-isolated-white-background_570543-3210.jpg",
-                options: ["möglich", "unwahrscheinlich"],
-                answer: 0,
-                explain: "Ein zerknüllter Zettel wirkt verdächtig!"
-            },
-            {
-                type: "mc",
-                q: "Gehörte dies dem Täter?",
-                img: "https://media.istockphoto.com/id/515051993/de/foto/mcdonalds-fast-food-gericht-im-brown-paper-bag.jpg?s=612x612&w=0&k=20&c=K7IysEnNBA4Lrtr-8ZtH61vTiwcJsom07fUKF7asDGI=",
-                options: ["möglich", "unwahrscheinlich"],
-                answer: 1,
-                explain: "Einen Cheesy hat er wohl kaum verwendet!"
-            },
-            {
-                type: "t",
-                ht: "Der Zettel",
-                ct: "Das war alles! Es kann also nur der Zettel gewesen sein. Du beginnst ihn zu entziffern und bemerkst, dass es ein Zugticket von Wien Hbf nach Mödling für heute Vormittag war. Der Täter kommt also vermutlich aus Wien. \n Zeit die Verfolgung aufzunehmen!"
-            }
-        ]
-    },
 
-    // 🔹 Quest 3: Die Zugfahrt
-    {
-        location: {
-            latitude: 48.200300,
-            longitude: 16.370300
-        },
-        questions: [
-            {
-                type: "t",
-                ht: "Die Zugfahrt",
-                img: "https://assets.new.siemens.com/siemens/assets/api/uuid:c15f69f4-5123-496d-8582-8a881588fd7f/IM2021080596MO.jpg",
-                ct: "Jetzt erstmal durchatmen! Ihr nutzt die Zugfahrt, um euch die Werke von dem verstorbenen Wissenschaftler genauer anzuschauen. Ein großer Teil seines Portfolios besteht aus generierter Kunst. Teilweise sind die Unterschiede zur Realität unverkennbar.",
+let quests = [];
+els.upload.addEventListener("change", async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
 
-            },
-            {
-                type: "mc",
-                q: "Ist dieses Bild KI generiert?",
-                img: "https://www.newsshooter.com/wp-content/uploads/2024/02/Screen-Shot-2024-02-15-at-5.09.45-PM.jpg",
-                options: ["echt", "KI"],
-                answer: 1,
-                explain: "klarer Fake!"
-            },
-            {
-                type: "mc",
-                q: "Ist dieses Bild KI generiert?",
-                img: "https://img.freepik.com/premium-photo/deep-forest-fantasy-backdrop-concept-art-realistic-illustration-video-game-digital-cg-artwork_21085-34823.jpg",
-                options: ["echt", "KI"],
-                answer: 1,
-                explain: "klarer Fake!"
-            },
-            {
-                type: "mc",
-                q: "Ist dieses Bild KI generiert?",
-                img: "https://t3.ftcdn.net/jpg/03/41/65/32/360_F_341653257_FFprp8DsN9o7wPf4KRzZKxiHDAOIcoGh.jpg",
-                options: ["echt", "KI"],
-                answer: 0,
-                explain: "zu real!"
-            },
-            {
-                type: "mc",
-                q: "Ist dieses Bild KI generiert?",
-                img: "https://photographylife.com/wp-content/uploads/2012/10/Capitol-Peak-Sunset.jpg",
-                options: ["echt", "KI"],
-                answer: 0,
-                explain: "zu real!"
-            },
-            {
-                type: "mc",
-                q: "Ist dieses Bild KI generiert?",
-                img: "https://promptstock.photos/wp-content/uploads/2023/06/Food-Photography-2.png",
-                options: ["echt", "KI"],
-                answer: 1,
-                explain: "klarer Fake!"
-            },
-            {
-                type: "t",
-                ht: "Fake-Checked",
-                ct: "Das war ein guter Zeitvertreib. Doch wie kann man an einem überrannten Ort wie dem Hauptbahnhof eine Spur aufnehmen? Vielleicht gibt es ja jemanden, der dort alles genau beobachtet hat, während er unscheinbar vor sich hinwippt."
-            }
-        ]
-    },
+    const text = await file.text();     // read file as text
+    const data = JSON.parse(text);      // convert to JS object/array
 
-    // 🔹 Quest 4: TU Hauptgebäude
-    {
-        location: {
-            latitude: 48.200400,
-            longitude: 16.370400
-        },
-        questions: [
-            {
-                type: "t",
-                ht: "Der Wipp-Bre",
-                ct: "Der Wipp-Bre sitzt an seinem Platz und beobachtet stets, wer sich an ihm vorbeibewegt. Das Gedächtnis dieses mystischen Herren funktioniert wie kein anderes, doch seine Art zu reden ist sehr kryptisch und rätselhaft. Schafft ihr es, seine Aussagen zu deuten?"
-              },
-              {
-                type: "mc",
-                q: "Was möchte er euch sagen: 'Ein Wort wird erst fallen, wenn der Drang nach Entsagung erlischt und ein Wunsch seine Ketten löst'",
-                options: ["Er wird bedroht", "Er ist gefangen", "Er hat eine Bedingung", "Der Täter ist hingefallen"],
-                answer: 2,
-                explain:"Anscheinend hat er eine Bedingung"
-              },
-              {
-                type: "mc",
-                q: "Auf die Frage, was er möchte, sprach er: 'Cheeburburb'. Was will er?",
-                options: ["Croissant", "Wasser", "Cheeseburger", "Geld"],
-                answer: 2,
-                explain:"Ein klassischer Cheesy ist nicht verwerflich!"
-              },
-              {
-                type: "mc",
-                q: "Glücklich über den Cheesy sagte er: 'Er folgte dem unsichtbaren Pfad, den nur die Informageeks kennen, jenseits der Schönheit und Normalität' \n Wo ist der Täter hingegangen?",
-                options: ["Favoriten", "TU", "U6", "Oper"],
-                answer: 1,
-                explain:"Informageeks müssen auf die TU gehen"
-              },
-              {
-                type: "t",
-                ht: "Hinweis vom Wipp-Bre",
-                ct: "Die Befragung lief gut. Der Täter ist also Richtung Karlsplatz gefahren. Das ist am schnellsten mit der U1. Möglicherweise hat er einen Bezug zur TU-Wien?"
-              }
-            ]
-          
-            
-    },
-
-    // 🔹 Quest 5: Die Enthüllung
-    {
-        location: {
-            latitude: 48.200500,
-            longitude: 16.370500
-        },
-        questions: [
-            {
-                type: "t",
-                ht: "Die Enthüllung",
-                ct: "Die Beweise sind erdrückend. Der Mann im Mantel war tatsächlich der Mörder! Du übergibst alle Infos der Polizei. Der Fall ist gelöst."
-            }
-        ]
-    }
-];
-
+    quests = data;
+    console.log("JS object:", quests);
+    els.searchLocation.classList.remove("hidden");
+    els.startPanel.classList.add("hidden");
+  });
 
 
 let currentQuestIndex = 0;
@@ -309,5 +90,180 @@ els.btnCloseQuiz.addEventListener('click', () => {
 });
 
 
+//#region story Editor
+// Story Editor functionality
+let storyData = [];
+let locationCounter = 0;
+
+// Show story editor when Create Story button is clicked
+document.getElementById('createStory').addEventListener('click', () => {
+    document.getElementById('startPanel').classList.add('hidden');
+    document.getElementById('storyEditor').classList.remove('hidden');
+    storyData = [];
+    locationCounter = 0;
+    updateStoryContent();
+});
+
+// Back to start panel
+document.getElementById('backToStart').addEventListener('click', () => {
+    document.getElementById('storyEditor').classList.add('hidden');
+    document.getElementById('startPanel').classList.remove('hidden');
+});
+
+// Add new location
+document.getElementById('addLocation').addEventListener('click', () => {
+    const newLocation = {
+        location: {
+            latitude: 48.200100 + (locationCounter * 0.0001),
+            longitude: 16.370100 + (locationCounter * 0.0001)
+        },
+        questions: []
+    };
+    storyData.push(newLocation);
+    locationCounter++;
+    updateStoryContent();
+});
+
+// Save story as JSON
+document.getElementById('saveStory').addEventListener('click', () => {
+    const jsonString = JSON.stringify(storyData, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'my-story.cityHunt';
+    a.click();
+    URL.revokeObjectURL(url);
+});
+
+function updateStoryContent() {
+    const content = document.getElementById('storyContent');
+    if (storyData.length === 0) {
+        content.innerHTML = '<div class="small" style="text-align: center; margin: 20px 0;">Click "Add Location" to begin creating your story</div>';
+        return;
+    }
+
+    content.innerHTML = storyData.map((location, locationIndex) => `
+        <div class="location-editor">
+            <div class="location-header">
+                <span class="location-title">Location ${locationIndex + 1}</span>
+                <button class="remove-location" onclick="removeLocation(${locationIndex})">×</button>
+            </div>
+            <div class="coord-inputs">
+                <input type="number" placeholder="Latitude" value="${location.location.latitude}" step="0.000001" onchange="updateLocation(${locationIndex}, 'latitude', this.value)">
+                <input type="number" placeholder="Longitude" value="${location.location.longitude}" step="0.000001" onchange="updateLocation(${locationIndex}, 'longitude', this.value)">
+            </div>
+            <div class="questions-container" id="questions-${locationIndex}">
+                ${location.questions.map((question, questionIndex) => createQuestionEditor(locationIndex, questionIndex, question)).join('')}
+            </div>
+            <button class="add-option" onclick="addQuestion(${locationIndex})">+ Add Question</button>
+        </div>
+    `).join('');
+}
+
+function createQuestionEditor(locationIndex, questionIndex, question) {
+    const isText = question.type === 't';
+    const isMC = question.type === 'mc';
+    
+    return `
+        <div class="question-editor">
+            <button class="remove-question" onclick="removeQuestion(${locationIndex}, ${questionIndex})">Remove</button>
+            <div class="question-type">
+                <select onchange="updateQuestionType(${locationIndex}, ${questionIndex}, this.value)">
+                    <option value="t" ${isText ? 'selected' : ''}>Text/Story</option>
+                    <option value="mc" ${isMC ? 'selected' : ''}>Multiple Choice</option>
+                </select>
+            </div>
+            ${isText ? `
+                <input class="editor-input" placeholder="Title/Header" value="${question.ht || ''}" onchange="updateQuestionField(${locationIndex}, ${questionIndex}, 'ht', this.value)">
+                <input class="editor-input" placeholder="Image URL (optional)" value="${question.img || ''}" onchange="updateQuestionField(${locationIndex}, ${questionIndex}, 'img', this.value)">
+                <textarea class="editor-textarea" placeholder="Story text..." onchange="updateQuestionField(${locationIndex}, ${questionIndex}, 'ct', this.value)">${question.ct || ''}</textarea>
+            ` : `
+                <input class="editor-input" placeholder="Question" value="${question.q || ''}" onchange="updateQuestionField(${locationIndex}, ${questionIndex}, 'q', this.value)">
+                <input class="editor-input" placeholder="Image URL (optional)" value="${question.img || ''}" onchange="updateQuestionField(${locationIndex}, ${questionIndex}, 'img', this.value)">
+                <div class="options-editor">
+                    <label>Options:</label>
+                    ${(question.options || []).map((option, optionIndex) => `
+                        <div class="option-input">
+                            <input value="${option}" onchange="updateOption(${locationIndex}, ${questionIndex}, ${optionIndex}, this.value)">
+                            <button onclick="removeOption(${locationIndex}, ${questionIndex}, ${optionIndex})">×</button>
+                        </div>
+                    `).join('')}
+                    <button class="add-option" onclick="addOption(${locationIndex}, ${questionIndex})">+ Add Option</button>
+                </div>
+                <input class="editor-input" placeholder="Correct answer index (0, 1, 2...)" type="number" value="${question.answer || 0}" onchange="updateQuestionField(${locationIndex}, ${questionIndex}, 'answer', parseInt(this.value))">
+                <input class="editor-input" placeholder="Explanation" value="${question.explain || ''}" onchange="updateQuestionField(${locationIndex}, ${questionIndex}, 'explain', this.value)">
+            `}
+        </div>
+    `;
+}
+
+// Global functions for the story editor
+window.updateLocation = (locationIndex, field, value) => {
+    storyData[locationIndex].location[field] = parseFloat(value);
+};
+
+window.removeLocation = (locationIndex) => {
+    storyData.splice(locationIndex, 1);
+    updateStoryContent();
+};
+
+window.addQuestion = (locationIndex) => {
+    if (!storyData[locationIndex].questions) {
+        storyData[locationIndex].questions = [];
+    }
+    storyData[locationIndex].questions.push({ type: 't', ht: '', ct: '', img: '' });
+    updateStoryContent();
+};
+
+window.removeQuestion = (locationIndex, questionIndex) => {
+    storyData[locationIndex].questions.splice(questionIndex, 1);
+    updateStoryContent();
+};
+
+window.updateQuestionType = (locationIndex, questionIndex, type) => {
+    const question = storyData[locationIndex].questions[questionIndex];
+    question.type = type;
+    if (type === 'mc') {
+        question.q = question.ht || '';
+        question.options = ['', ''];
+        question.answer = 0;
+        question.explain = '';
+        delete question.ht;
+        delete question.ct;
+    } else {
+        question.ht = question.q || '';
+        question.ct = '';
+        delete question.q;
+        delete question.options;
+        delete question.answer;
+        delete question.explain;
+    }
+    updateStoryContent();
+};
+
+window.updateQuestionField = (locationIndex, questionIndex, field, value) => {
+    storyData[locationIndex].questions[questionIndex][field] = value;
+};
+
+window.addOption = (locationIndex, questionIndex) => {
+    if (!storyData[locationIndex].questions[questionIndex].options) {
+        storyData[locationIndex].questions[questionIndex].options = [];
+    }
+    storyData[locationIndex].questions[questionIndex].options.push('');
+    updateStoryContent();
+};
+
+window.removeOption = (locationIndex, questionIndex, optionIndex) => {
+    storyData[locationIndex].questions[questionIndex].options.splice(optionIndex, 1);
+    updateStoryContent();
+};
+
+window.updateOption = (locationIndex, questionIndex, optionIndex, value) => {
+    storyData[locationIndex].questions[questionIndex].options[optionIndex] = value;
+};
 
 
+
+
+//#endregion

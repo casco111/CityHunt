@@ -1,4 +1,8 @@
 const els = {
+
+    upload:document.getElementById('upload'),
+    createStory:document.getElementById('createStory'),
+    startPanel:document.getElementById('startPanel'),
     bar: document.getElementById('bar'),
     counter: document.getElementById('counter'),
     qType: document.getElementById('qType'),

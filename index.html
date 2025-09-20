@@ -9,6 +9,56 @@
 </head>
 
 <body>
+  
+    <div id="startPanel" class="app">
+      <div class="header" style="text-align: center; justify-content: center;">
+        <div>
+          <h1>Start the City Hunt</h1>
+          <p class="subtitle">Select a story to play</p>
+        </div>
+      </div>
+   
+    
+      <div class="end-card">
+        <label for="upload" class="secondary file-upload" >
+          <span style="font-size: 18px;">📤 Choose Story File</span>
+        </label>
+        <input type="file" id="upload" accept=".cityHunt" style="display: none;">
+        <button id="createStory" class="destination-btn">Create Story</button>
+      </div>
+  </div>
+
+  <!-- Story Editor Panel -->
+  <div id="storyEditor" class="app hidden">
+    <div class="header" style="text-align: center; justify-content: center;">
+      <div>
+        <h1>Create New Story</h1>
+        <p class="subtitle">Design your own city hunt adventure</p>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="controls">
+        <button id="addLocation" class="destination-btn">
+          <span class="btn-icon">📍</span>
+          <span class="btn-text">Add Location</span>
+        </button>
+        <button id="saveStory" class="primary">
+          💾 Save Story
+        </button>
+        <button id="backToStart" class="secondary">
+          ← Back to Start
+        </button>
+      </div>
+      
+      <div id="storyContent">
+        <div class="small" style="text-align: center; margin: 20px 0;">
+          Click "Add Location" to begin creating your story
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="quiz" class="app hidden">
     <div class="header">
       <div class="logo" aria-hidden="true">🎈</div>
@@ -71,7 +121,8 @@
     </div>
   </div>
 
-  <div id="searchLocation" class="search-location">
+
+  <div id="searchLocation" class="search-location hidden">
     <div class="search-content">
       <div class="search-icon">📍</div>
       <h2>Ready for Adventure?</h2>
