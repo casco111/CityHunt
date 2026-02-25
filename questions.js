@@ -25,6 +25,7 @@ const els = {
     btnCloseQuiz: document.getElementById('btnCloseQuiz'),
     btnRestartQuiz: document.getElementById('btnRestartQuiz'),
     searchLocation: document.getElementById('searchLocation'),
+    skipSearchButton: document.getElementById('skipSearch'),
     pulsatingCircle: document.getElementById('pulsatingCircle'),
     signalText: document.getElementById('signalText'),
     btnGetDestination: document.getElementById('btnGetDestination'),

@@ -22,7 +22,7 @@ class SignalSimulation {
         els.btnGetDestination.disabled = true;
         els.btnGetDestination.querySelector('.btn-text').textContent = 'Searching...';
         this.updateSignalState();
-        //this.openLocation(); ToDo ebnavbke
+        this.openLocation(); //ToDo ebnavbke
         const loc = await this.updateLocation();
         if(!loc)return;
         
