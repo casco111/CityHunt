@@ -15,7 +15,7 @@ els.upload.addEventListener("change", async (event) => {
 
     storageKey = file.name;
     let storedIndex = parseInt(localStorage.getItem(storageKey));
-    let storedScore = parseInt(localStorage.getItem(storageKey+"_score"));
+    let storedScore = parseFloat(localStorage.getItem(storageKey+"_score"));
     
     if(storedIndex) {
         if(storedIndex < quests.length && confirm("load saved Progress?")){
