@@ -38,24 +38,27 @@ class SignalSimulation {
     }
 
     async updateLocation() {
-        if (!navigator.geolocation) {
-            console.warn('Geolocation is not supported by this browser');
-            this.fallbackToDefaultSignal();
-            return false;
-        }
-       
-        navigator.geolocation.getCurrentPosition(position => {
-            this.currentLocation = position.coords;
-            console.log(this.currentLocation);
-            return true;
-        }, error => {
-      
-            console.log(`Unable to retrieve location${error}`);
-            clearInterval(this.searchInterval)
-            this.fallbackToDefaultSignal();
-            return false;
+        return new Promise((resolve) => {
+            if (!navigator.geolocation) {
+                alert('Geolocation is not supported by this browser');
+                this.fallbackToDefaultSignal();
+                resolve(false);
+                return;
+            }
+           
+            navigator.geolocation.getCurrentPosition(position => {
+                this.currentLocation = position.coords;
+                console.log("Location updated:", this.currentLocation);
+                resolve(true); // <-- Wichtig: Hier wird das Promise erfolgreich aufgelöst
+            }, error => {
+                console.log(`Unable to retrieve location: ${error.message}`);
+                clearInterval(this.searchInterval);
+                this.fallbackToDefaultSignal();
+                resolve(false); // <-- Hier schlägt es fehl
+            }, { 
+                enableHighAccuracy: true // <-- Tipp: Macht das Tracking genauer!
+            });
         });
-     
     }
 
     calculateDistance(lat1, lon1, lat2, lon2) {

@@ -32,8 +32,7 @@ const els = {
     signalText: document.getElementById('signalText'),
     btnGetDestination: document.getElementById('btnGetDestination'),
     btnStartQuest: document.getElementById('btnStartQuest'),
-    quizPanel: document.getElementById('quiz'),
-    searchPanel: document.getElementById('searchLocation'),
+    quizPanel: document.getElementById('quiz')
 };
 
 class multipleChoice {
