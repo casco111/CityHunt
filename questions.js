@@ -14,6 +14,7 @@ const els = {
     btnSubmit: document.getElementById('btnSubmit'),
     btnNext: document.getElementById('btnNext'),
     btnRestart: document.getElementById('btnRestart'),
+    answerCard: document.getElementById('answerCard'),
     feedback: document.getElementById('feedback'),
     explain: document.getElementById('explain'),
     imgContainer: document.getElementById('img-container'),
@@ -239,6 +240,8 @@ class textCard {
         let result = index == this.data.answer;
         els.explain.textContent = this.data.explain;
         els.feedback.textContent = result ? "correct!" : "wrong!";
+        els.answerCard.classList.remove('hidden');
+        console.log("hsdfhs")
         return result;
     }
     remove() {

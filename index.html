@@ -61,10 +61,10 @@
 
   <div id="quiz" class="app hidden">
     <div class="header">
-      <div class="logo" aria-hidden="true">🎈</div>
+      
       <div>
-        <h1>Playful Quiz</h1>
-        <p class="subtitle">Lightweight, single‑file quiz with easily editable questions.</p>
+        <h1>Destination</h1>
+        <p class="subtitle">Answer carefully and reveal all the secrets</p>
       </div>
     </div>
 
@@ -85,13 +85,19 @@
         Second line
       </span>
       <div class="controls">
-        <button data-id="qUI" id="btnSubmit">Check answer</button>
-        <button class="secondary" id="btnNext">Next</button>
+        <button data-id="qUI" id="btnSubmit">Done</button>
+        <!--<button class="secondary" id="btnNext">Next</button> -->
         <!-- <button class="secondary" id="btnRestart">Restart</button> -->
       </div>
 
-      <div data-id="qUI" id="feedback" class="feedback" aria-live="polite"></div>
-      <div data-id="qUI" id="explain" class="small"></div>
+      <!--<div data-id="qUI" id="feedback" class="feedback" aria-live="polite"></div>
+      <div data-id="qUI" id="explain" class="small"></div> -->
+    </div>
+
+    <div class="card" id="answerCard">
+      <h1 id="feedback">richtig</h1>
+      <div data-id="qUI" id="explain" "></div>
+      <button class="secondary" id="btnNext">Next</button>
     </div>
 
     <div id="textUI">
@@ -115,10 +121,7 @@
         </div>
       </div>
     </div>
-    <div class="footer">
-      <div class="small">Edit questions in the <strong>QUESTIONS</strong> list below ↓</div>
-      <div class="small">Edit questions in the <strong>QUESTIONS</strong> list below ↓</div>
-    </div>
+    
   </div>
 
 

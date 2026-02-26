@@ -14,6 +14,7 @@ class loadQuest {
     loadNextQuest() {
         if (this.currentCard) this.currentCard.remove();
         if (this.data.length <= ++this.current) {
+            
             this.endQuiz();
             return null;
         }
@@ -41,6 +42,9 @@ class loadQuest {
         let isQ = currentQuest.type !== 't';
         const qUIs = document.querySelectorAll('[data-id="qUI"]');
         els.btnNext.disabled = isQ;
+        if(isQ)
+        els.answerCard.classList.add('hidden');
+        else els.answerCard.classList.remove('hidden');
         if (isQ) {
             els.counter.textContent = `Question ${this.current} / ${this.questionNumber}`
         }
@@ -65,6 +69,7 @@ class loadQuest {
         if (result === null) return null;
         if(result === true) this.score ++;
         els.btnNext.disabled = false;
+        els.answerCard.classList.remove('hidden');
         els.bar.style.width = this.current / this.questionNumber * 100 + "%";
     }
 
@@ -76,7 +81,7 @@ class loadQuest {
         const textUI = document.getElementById('textUI');
         const progress = document.querySelector('.progress');
         const counter = document.querySelector('.counter');
-        const footer = document.querySelector('.footer');
+       
         
         qUIs.forEach(element => element.classList.add("hidden"));
         tUIs.forEach(element => element.classList.add("hidden"));
@@ -84,7 +89,7 @@ class loadQuest {
         textUI.classList.add("hidden");
         progress.classList.add("hidden");
         counter.classList.add("hidden");
-        footer.classList.add("hidden");
+        els.answerCard.classList.add('hidden');
         
         // Show end card
         els.endCard.classList.remove("hidden");
@@ -108,7 +113,7 @@ class loadQuest {
         const app = document.getElementById('quiz');
         app.classList.add("hidden")
         document.getElementById('searchLocation').classList.remove("hidden")
-       
+        
     }
     
     restartQuiz() {
@@ -126,7 +131,7 @@ class loadQuest {
         const textUI = document.getElementById('textUI');
         const progress = document.querySelector('.progress');
         const counter = document.querySelector('.counter');
-        const footer = document.querySelector('.footer');
+        
         
         qUIs.forEach(element => element.classList.remove("hidden"));
         tUIs.forEach(element => element.classList.remove("hidden"));
@@ -134,7 +139,7 @@ class loadQuest {
         textUI.classList.remove("hidden");
         progress.classList.remove("hidden");
         counter.classList.remove("hidden");
-        footer.classList.remove("hidden");
+        
         
         // Reset progress bar
         els.bar.style.width = "0%";
