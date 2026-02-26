@@ -95,9 +95,9 @@
     </div>
 
     <div class="card" id="answerCard">
-      <h1 id="feedback">richtig</h1>
+      <h1 id="feedback"></h1>
       <div data-id="qUI" id="explain" "></div>
-      <button class="secondary" id="btnNext">Next</button>
+      <button class="primary" id="btnNext">Next</button>
     </div>
 
     <div id="textUI">
@@ -122,6 +122,7 @@
       </div>
     </div>
     
+  
   </div>
 
 
@@ -150,7 +151,14 @@
       </button>
     </div>
   </div>
-
+  <div class="app hidden" id="gameEndPanel">
+    <h1>Well done! </h1>
+    <h2>Thank you for playing</h2>
+    <div class="score-display">
+      <p class="score-text">You scored <span id="finalScore">0</span>%</p>
+    </div>
+    <button class="primary"  onclick="resetGame();">home</button>
+  </div>
   <script src="questions.js"></script>
   <script src="loadQuest.js"></script>
   <script src="signalSimulation.js"></script>

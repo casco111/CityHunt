@@ -1,49 +1,7 @@
-console.log("test")
-
-
-
-/*
-els.bar.style.width = "20%"
-const div = document.createElement('div');
-div.className = 'opt';
-//div.setAttribute('role','radio');
-//div.setAttribute('aria-checked','false');
-//div.tabIndex = 0;
-div.innerHTML = `<span class="dot"></span><span>test</span>`;
-div.addEventListener("click", ()=>{
-    let set = div.getAttribute('aria-checked')||"false";
-    set = set == "false"? "true" : "false"; 
-    div.setAttribute('aria-checked',set+"");
-})
-
-els.options.appendChild(div);
-
-const div2 = document.createElement('input');
-div2.type = "text";
-div2.placeholder = "text";
-
-els.textRow.appendChild(div2);
-
-const q1 =   { type: "mc", q: "Which language runs in a web browser?", options: ["Python", "C++", "JavaScript", "Java"], answer: 2, explain: "JavaScript is built into browsers." };
-
-
-let mc = new multipleChoice(q1);
-//mc.show();
-
-const q2 =  { type: "text", q: "What color do you get when you mix blue and yellow?", answer: ["green"], explain: "Blue + yellow = green.", img:"https://www.animenachrichten.de/wp-content/uploads/2018/11/OK-saitama-one-punch-man-39439986-1920-1080.png" };
-let tq = new inputQuestion(q2);
-tq.show();
-els.btnSubmit.addEventListener("click", ()=>{
-   // console.log(mc.check())
-    console.log(tq.check())
-})
-*/
-
-
-
-
 let quests = [];
 let signalSimulation;
+let storageKey;
+let finalScore= 0;
 els.upload.addEventListener("change", async (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -52,9 +10,20 @@ els.upload.addEventListener("change", async (event) => {
     const data = JSON.parse(text);      // convert to JS object/array
 
     quests = data;
-    console.log("JS object:", quests);
     els.searchLocation.classList.remove("hidden");
     els.startPanel.classList.add("hidden");
+
+    storageKey = file.name;
+    let storedIndex = parseInt(localStorage.getItem(storageKey));
+    let storedScore = parseInt(localStorage.getItem(storageKey+"_score"));
+    
+    if(storedIndex) {
+        if(storedIndex < quests.length && confirm("load saved Progress?")){
+
+            currentQuestIndex = storedIndex;
+            finalScore = storedScore;
+        }
+    }
     signalSimulation = new SignalSimulation(quests[currentQuestIndex]);
   });
 
@@ -76,18 +45,41 @@ els.btnStartQuest.addEventListener('click', () => {
 });
 els.btnNext.addEventListener("click", () => {
     lQ.loadNextQuest();
+    els.btnSubmit.disabled =false;
 })
 els.btnSubmit.addEventListener("click", () => {
     lQ.checkQuestion();
+    els.btnSubmit.disabled = true;
 })
 els.btnCloseQuiz.addEventListener('click', () => {
+    finalScore = (finalScore*currentQuestIndex + lQ.scorePercentage)/(currentQuestIndex+1)
     lQ.closeQuiz(); //apply results
     currentQuestIndex++;
+    localStorage.setItem(storageKey, currentQuestIndex);
+    localStorage.setItem(storageKey+"_score", finalScore);
     if (currentQuestIndex >= quests.length) {
+        endGame();
         return;
     }
     signalSimulation = new SignalSimulation(quests[currentQuestIndex]);
 });
+
+function endGame(){
+    els.gameEndPanel.classList.remove('hidden');
+    els.searchLocation.classList.add('hidden');
+    els.finalScore.textContent = Math.round(finalScore);
+}
+function resetGame(){
+    els.gameEndPanel.classList.add('hidden');
+    els.startPanel.classList.remove('hidden');
+    currentQuestIndex =0;
+    finalScore = 0;
+    storageKey= null;
+    quests = [];
+    lQ = null;
+}
+
+
 let holdTimer;
 function startHold(e) {
     e.preventDefault();

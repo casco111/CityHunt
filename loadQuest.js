@@ -97,9 +97,9 @@ class loadQuest {
         // Calculate and display score
         const correctAnswers = this.score;
         const totalQuestions = this.questionNumber;
-        const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+        this.scorePercentage = Math.round((correctAnswers / totalQuestions) * 100);
         
-        els.scorePercentage.textContent = percentage;
+        els.scorePercentage.textContent = this.scorePercentage;
         
        
         els.endMessage.textContent = "done";

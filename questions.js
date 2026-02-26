@@ -20,6 +20,7 @@ const els = {
     imgContainer: document.getElementById('img-container'),
     endCard: document.getElementById('endCard'),
     finalScore: document.getElementById('finalScore'),
+    gameEndPanel: document.getElementById('gameEndPanel'),
     totalQuestions: document.getElementById('totalQuestions'),
     scorePercentage: document.getElementById('scorePercentage'),
     endMessage: document.getElementById('endMessage'),
@@ -239,9 +240,9 @@ class textCard {
         });
         let result = index == this.data.answer;
         els.explain.textContent = this.data.explain;
+        
         els.feedback.textContent = result ? "correct!" : "wrong!";
-        els.answerCard.classList.remove('hidden');
-        console.log("hsdfhs")
+        
         return result;
     }
     remove() {
