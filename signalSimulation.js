@@ -91,6 +91,7 @@ class SignalSimulation {
 
 
         if (distance <= this.distanceThresholds.strong) {
+            this.currentState = 2;
             this.completeSearch();
             return;
         } else if (distance <= this.distanceThresholds.medium) {
