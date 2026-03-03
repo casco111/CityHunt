@@ -110,9 +110,7 @@ class inputQuestion {
     }
     check() {
         let result = false;
-        this.data.answer.forEach((e,i)=>{
-            if(e===this.input)result = true;
-        });
+        if(this.data.answer === this.input) result = true;
         this.div.style.pointerEvents = "none";
         els.explain.textContent = this.data.explain;
         els.feedback.textContent = result ? "correct!" : "wrong!";

@@ -124,8 +124,8 @@ document.getElementById('backToStart').addEventListener('click', () => {
 document.getElementById('addLocation').addEventListener('click', () => {
     const newLocation = {
         location: {
-            latitude: 48.200100 + (locationCounter * 0.0001),
-            longitude: 16.370100 + (locationCounter * 0.0001)
+            latitude: 0,
+            longitude: 0
         },
         questions: []
     };
