@@ -3,6 +3,7 @@ class loadQuest {
         this.data = questData;
         this.current = -1;
         this.questionNumber = 0;
+        this.currentQuestionIndex = 0;
         this.score = 0;
         questData.forEach(q => {
             if (q.type !== 't') this.questionNumber++;
@@ -22,6 +23,7 @@ class loadQuest {
 
         let currentQuest = this.data[this.current];
         this.currentCard = null;
+        this.currentQuestionIndex++;
         if (currentQuest.type === 'mc') {
             this.currentCard = new multipleChoice(currentQuest);
         }
@@ -33,6 +35,7 @@ class loadQuest {
             this.currentCard = new dragDropQuestion(currentQuest);
         }
         if (currentQuest.type === 't') {
+            this.currentQuestionIndex--;
             this.currentCard = new textCard(currentQuest);
         }
         this.currentCard.show();
@@ -46,7 +49,7 @@ class loadQuest {
         els.answerCard.classList.add('hidden');
         else els.answerCard.classList.remove('hidden');
         if (isQ) {
-            els.counter.textContent = `Question ${this.current} / ${this.questionNumber}`
+            els.counter.textContent = `Question ${this.currentQuestionIndex} / ${this.questionNumber}`
         }
 
         qUIs.forEach(element => {
@@ -70,7 +73,7 @@ class loadQuest {
         if(result === true) this.score ++;
         els.btnNext.disabled = false;
         els.answerCard.classList.remove('hidden');
-        els.bar.style.width = this.current / this.questionNumber * 100 + "%";
+        els.bar.style.width = this.currentQuestionIndex / this.questionNumber * 100 + "%";
     }
 
     endQuiz() {

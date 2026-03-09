@@ -18,6 +18,7 @@ const els = {
     feedback: document.getElementById('feedback'),
     explain: document.getElementById('explain'),
     imgContainer: document.getElementById('img-container'),
+    audioContainer: document.getElementById('audio-container'),
     endCard: document.getElementById('endCard'),
     finalScore: document.getElementById('finalScore'),
     gameEndPanel: document.getElementById('gameEndPanel'),
@@ -58,12 +59,20 @@ class multipleChoice {
             els.options.append(div);
         });
         this.showImage();
+        this.showAudio();
     }
     showImage(){
         if(!this.data.img) return;
         const imgDiv = document.createElement("img");
         imgDiv.src = this.data.img;
         els.imgContainer.appendChild(imgDiv);
+    }
+    showAudio(){
+        if(!this.data.audio) return;
+        const audioDiv = document.createElement("audio");
+        audioDiv.controls = true;
+        audioDiv.src = this.data.audio;
+        els.audioContainer.appendChild(audioDiv);
     }
     check() {
         let index = -1;
@@ -81,6 +90,7 @@ class multipleChoice {
         els.explain.textContent = ""
         els.feedback.textContent = ""
         els.imgContainer.innerHTML = "";
+        els.audioContainer.innerHTML = "";
     }
 }
 
@@ -101,12 +111,21 @@ class inputQuestion {
         })
         els.textRow.appendChild(this.div);
         this.showImage();
+        this.showAudio();
+
     }
     showImage(){
         if(!this.data.img) return;
         const imgDiv = document.createElement("img");
         imgDiv.src = this.data.img;
         els.imgContainer.appendChild(imgDiv);
+    }
+     showAudio(){
+        if(!this.data.audio) return;
+        const audioDiv = document.createElement("audio");
+        audioDiv.controls = true;
+        audioDiv.src = this.data.audio;
+        els.audioContainer.appendChild(audioDiv);
     }
     check() {
         let result = false;
@@ -121,6 +140,7 @@ class inputQuestion {
         els.explain.textContent = ""
         els.feedback.textContent = ""
         els.imgContainer.innerHTML = "";
+        els.audioContainer.innerHTML = "";
     }
 }
 
@@ -177,6 +197,8 @@ class dragDropQuestion {
         });
 
         this.showImage();
+        this.showAudio();
+
     }
 
     showImage() {
@@ -184,6 +206,13 @@ class dragDropQuestion {
         const imgDiv = document.createElement("img");
         imgDiv.src = this.data.img;
         els.imgContainer.appendChild(imgDiv);
+    }
+     showAudio(){
+        if(!this.data.audio) return;
+        const audioDiv = document.createElement("audio");
+        audioDiv.controls = true;
+        audioDiv.src = this.data.audio;
+        els.audioContainer.appendChild(audioDiv);
     }
 
     check() {
@@ -209,6 +238,7 @@ class dragDropQuestion {
         els.explain.textContent = "";
         els.feedback.textContent = "";
         els.imgContainer.innerHTML = "";
+        els.audioContainer.innerHTML = "";
     }
 }
 
@@ -222,12 +252,20 @@ class textCard {
         els.qText.textContent = this.data.ht;
         els.tText.textContent = this.data.ct;
         this.showImage();
+        this.showAudio();
     }
     showImage(){
         if(!this.data.img) return;
         const imgDiv = document.createElement("img");
         imgDiv.src = this.data.img;
         els.imgContainer.appendChild(imgDiv);
+    }
+    showAudio(){
+        if(!this.data.audio) return;
+        const audioDiv = document.createElement("audio");
+        audioDiv.controls = true;
+        audioDiv.src = this.data.audio;
+        els.audioContainer.appendChild(audioDiv);
     }
     check() {
         let index = -1;
@@ -246,5 +284,6 @@ class textCard {
         els.qText.textContent = "";
         els.tText.textContent = "";
         els.imgContainer.innerHTML = "";
+        els.audioContainer.innerHTML = "";
     }
 }

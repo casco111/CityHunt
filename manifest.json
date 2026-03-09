@@ -1,0 +1,13 @@
+{
+  "name": "City Hunt",
+  "short_name": "CityHunt",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

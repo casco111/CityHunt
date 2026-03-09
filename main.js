@@ -187,10 +187,12 @@ function createQuestionEditor(locationIndex, questionIndex, question) {
             ${isText ? `
                 <input class="editor-input" placeholder="Title/Header" value="${question.ht || ''}" onchange="updateQuestionField(${locationIndex}, ${questionIndex}, 'ht', this.value)">
                 <input class="editor-input" placeholder="Image URL (optional)" value="${question.img || ''}" onchange="updateQuestionField(${locationIndex}, ${questionIndex}, 'img', this.value)">
+                <input class="editor-input" placeholder="AUDIO URL (optional)" value="${question.audio || ''}" onchange="updateQuestionField(${locationIndex}, ${questionIndex}, 'audio', this.value)">
                 <textarea class="editor-textarea" placeholder="Story text..." onchange="updateQuestionField(${locationIndex}, ${questionIndex}, 'ct', this.value)">${question.ct || ''}</textarea>
             ` : `
                 <input class="editor-input" placeholder="Question" value="${question.q || ''}" onchange="updateQuestionField(${locationIndex}, ${questionIndex}, 'q', this.value)">
                 <input class="editor-input" placeholder="Image URL (optional)" value="${question.img || ''}" onchange="updateQuestionField(${locationIndex}, ${questionIndex}, 'img', this.value)">
+                <input class="editor-input" placeholder="AUDIO URL (optional)" value="${question.audio || ''}" onchange="updateQuestionField(${locationIndex}, ${questionIndex}, 'audio', this.value)">
                 <div class="options-editor">
                     <label>Options:</label>
                     ${(question.options || []).map((option, optionIndex) => `
@@ -222,7 +224,7 @@ window.addQuestion = (locationIndex) => {
     if (!storyData[locationIndex].questions) {
         storyData[locationIndex].questions = [];
     }
-    storyData[locationIndex].questions.push({ type: 't', ht: '', ct: '', img: '' });
+    storyData[locationIndex].questions.push({ type: 't', ht: '', ct: '', img: '', audio:'' });
     updateStoryContent();
 };
 

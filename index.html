@@ -6,26 +6,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>City Hunt</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="/manifest.json">
 </head>
 
 <body>
-  
-    <div id="startPanel" class="app">
-      <div class="header" style="text-align: center; justify-content: center;">
-        <div>
-          <h1>Start the City Hunt</h1>
-          <p class="subtitle">Select a story to play</p>
-        </div>
+
+  <div id="startPanel" class="app">
+    <div class="header" style="text-align: center; justify-content: center;">
+      <div>
+        <h1>Start the City Hunt</h1>
+        <p class="subtitle">Select a story to play</p>
       </div>
-   
-    
-      <div class="end-card">
-        <label for="upload" class="secondary file-upload" >
-          <span style="font-size: 18px;">📤 Choose Story File</span>
-        </label>
-        <input type="file" id="upload" accept=".cityHunt" style="display: none;">
-        <button id="createStory" class="destination-btn">Create Story</button>
-      </div>
+    </div>
+
+
+    <div class="end-card">
+      <label for="upload" class="secondary file-upload">
+        <span style="font-size: 18px;">📤 Choose Story File</span>
+      </label>
+      <input type="file" id="upload" accept=".cityHunt" style="display: none;">
+      <button id="createStory" class="destination-btn">Create Story</button>
+    </div>
   </div>
 
   <!-- Story Editor Panel -->
@@ -36,7 +37,7 @@
         <p class="subtitle">Design your own city hunt adventure</p>
       </div>
     </div>
-    
+
     <div class="card">
       <div class="controls">
         <button id="addLocation" class="destination-btn">
@@ -50,7 +51,7 @@
           ← Back to Start
         </button>
       </div>
-      
+
       <div id="storyContent">
         <div class="small" style="text-align: center; margin: 20px 0;">
           Click "Add Location" to begin creating your story
@@ -61,7 +62,7 @@
 
   <div id="quiz" class="app hidden">
     <div class="header">
-      
+
       <div>
         <h1>Destination</h1>
         <p class="subtitle">Answer carefully and reveal all the secrets</p>
@@ -76,6 +77,9 @@
     <div class="card" id="card">
       <div data-id="qUI" class="pill" id="qType">Multiple Choice</div>
       <div id="img-container"></div>
+      <div id="audio-container"></div>
+  
+      
       <div class="q-text" id="qText">Loading…</div>
       <div data-id="qUI" class="options" id="options"></div>
       <div data-id="qUI" class="answer-row " id="textRow"></div>
@@ -96,7 +100,7 @@
 
     <div class="card" id="answerCard">
       <h1 id="feedback"></h1>
-      <div data-id="qUI" id="explain" "></div>
+      <div data-id="qUI" id="explain" class="q-text"></div>
       <button class="primary" id="btnNext">Next</button>
     </div>
 
@@ -121,8 +125,8 @@
         </div>
       </div>
     </div>
-    
-  
+
+
   </div>
 
 
@@ -145,7 +149,7 @@
         <span class="btn-icon">📜</span>
         <span class="btn-text">Start Quest</span>
       </button>
-     
+
       <button id="skipSearch" style="position: absolute; top: 5%; right: 5%;">
         skip
       </button>
@@ -157,7 +161,7 @@
     <div class="score-display">
       <p class="score-text">You scored <span id="finalScore">0</span>%</p>
     </div>
-    <button class="primary"  onclick="resetGame();">home</button>
+    <button class="primary" onclick="resetGame();">home</button>
   </div>
   <script src="questions.js"></script>
   <script src="loadQuest.js"></script>
