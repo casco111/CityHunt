@@ -1,7 +1,6 @@
 {
   "name": "City Hunt",
   "short_name": "CityHunt",
-  "start_url": "/",
   "display": "standalone",
   "icons": [
     {
