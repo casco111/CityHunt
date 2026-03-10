@@ -1,6 +1,6 @@
 # City Hunt App
 
-[![Play now](https://casco111.github.io/CityHunt/)**]
+**[Play now](https://casco111.github.io/CityHunt/)**
 
 **Create, share, and experience interactive urban adventures.**
 
