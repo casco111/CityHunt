@@ -1,5 +1,7 @@
 # City Hunt App
 
+**[Play now]([https://dein-username.github.io/dein-repo-name](https://casco111.github.io/CityHunt/))**
+
 **Create, share, and experience interactive urban adventures.**
 
 City Hunt is a lightweight, web-based platform designed to turn any city into an interactive playground. Whether you are planning a team-building event, a birthday surprise, or a deep-dive  mystery, City Hunt provides simple tools to build immersive location-based experiences.
@@ -22,7 +24,7 @@ City Hunt is a lightweight, web-based platform designed to turn any city into an
 
 ## Best Experience: Install as PWA
 
-For the most immersive experience, we highly recommend adding the website to your smartphone's home screen. This removes the browser UI and makes it feel like a native app.
+For the most immersive experience, I  recommend adding the website to your smartphone's home screen. This removes the browser UI and makes it feel like a native app.
 
 ### **On iOS (iPhone):**
 1.  Open the City Hunt link in **Safari**.
@@ -40,9 +42,8 @@ For the most immersive experience, we highly recommend adding the website to you
 ## Getting Started
 
 1.  **Define your Story:** Map out your locations and narrative flow.
-2.  **Configure the JSON:** Use the structured format to define coordinates, questions, and media links.
-3.  **Deploy:** Host the website on GitHub Pages or any static web host.
-4.  **Play:** Send the URL to your participants and start the hunt!
+2.  **Create your Story:** Use the built in editor to define coordinates, questions, and media links. Or edit the file created file in json format.
+3.  **Play:** Send the website URL and your story file to your participants and start the hunt!
 
 ## Tech Stack
 
