@@ -80,7 +80,7 @@ class multipleChoice {
             if (e.getAttribute('aria-checked') === "true") index = i;
             e.style.pointerEvents = "none";
         });
-        let result = index == this.data.answer;
+        let result = (index == this.data.answer)||this.data.answer == -1;
         els.explain.textContent = this.data.explain;
         els.feedback.textContent = result ? "correct!" : "wrong!";
         return result;
