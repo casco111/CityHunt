@@ -2,7 +2,7 @@
 
 **Create, share, and experience interactive urban adventures.**
 
-City Hunt is a lightweight, web-based platform designed to turn any city into an interactive playground. Whether you are planning a team-building event, a birthday surprise, or a deep-dive university mystery (like our *Project Minerva* case), City Hunt provides the tools to build immersive location-based experiences.
+City Hunt is a lightweight, web-based platform designed to turn any city into an interactive playground. Whether you are planning a team-building event, a birthday surprise, or a deep-dive  mystery, City Hunt provides simple tools to build immersive location-based experiences.
 
 ---
 
